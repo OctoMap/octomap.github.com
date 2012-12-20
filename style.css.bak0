@@ -1,0 +1,21 @@
+IMG {
+	border: 0;
+}
+
+A 	{  text-decoration: none; color: rgb(0,63,127); }
+A:hover {  text-decoration: underline; color: rgb(0,63,127); }
+
+ul {
+	padding-left: 20px;
+}
+
+
+#main TD {
+	padding: 1em;
+}
+
+#main {
+	margin: 20px;
+	width: 700px;
+}
+

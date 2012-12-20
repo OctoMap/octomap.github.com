@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="Kai M. Wurm">
+<title>Octomap - 3D occupancy mapping</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+
+<div id="main">
+<H1>Octomap</H1>
+
+<p>
+The <a href="https://sourceforge.net/projects/octomap/">Octomap library</a> 
+implements a 3D occupancy grid mapping
+approach, providing data structures and mapping algorithms. The map
+implementation is based on an octree and is designed to meet the following
+requirements:
+</p>
+
+<ul>
+<li>
+<b>Full 3D model.</b>  The map is able to model arbitrary environments
+without prior assumptions about it. The representation models occupied
+areas as well as free space. If no information is available about an
+area (commonly denoted as <i>unknown areas</i>), this information is
+encoded as well.  While the distinction between free and occupied
+space is essential for safe robot navigation, information about
+unknown areas is important, e.g., for autonomous exploration of an
+environment.
+</li>
+<li>
+<b>Updatable.</b>  It is possible to add new information or sensor
+ readings at any time. Modeling and updating is done in
+ a <i>probabilistic</i> fashion. This accounts for sensor noise or
+ measurements which result from dynamic changes in the environment,
+ e.g., because of dynamic objects.  Furthermore, multiple robots are
+ able to contribute to the same map and a previously recorded map is
+ extendable when new areas are explored.
+</li>
+<li>
+<b>Flexible.</b>  The extent of the map does not have to be known in
+advance. Instead, the map is dynamically expanded as needed. The map
+is multi-resolution so that, for instance, a high-level planner is
+able to use a coarse map, while a local planner may operate using a
+fine resolution. This also allows for efficient visualizations which
+scale from coarse overviews to detailed close-up views.
+</li>
+<li>
+<b>Compact.</b>  The map is stored efficiently, both in memory and on
+disk. It is possible to generate compressed files for later usage or
+convenient exchange between robots even under bandwidth constraints.
+</li>
+</ul>
+
+<p>
+The Octomap library is available as a <i>self-contained
+source distribution</i> for Linux and is actively maintained
+by <a href="http://www.informatik.uni-freiburg.de/~wurm">Kai
+M. Wurm</a>
+and <a href="http://www.informatik.uni-freiburg.de/~hornunga">Armin
+Hornung</a>. Feel free to contact us.
+</p>
+<p>
+Some general information is available at our 
+<a href="https://sourceforge.net/projects/octomap/">
+<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=277757&amp;type=10" width="80" height="15" alt="SF logo">&nbsp;Sourceforge project page</a>.
+</p>
+
+<h2>License</h2>
+<p>
+Octomap is released under the <a href="http://creativecommons.org/licenses/GPL/2.0/">GNU-GPL License (version 2)</a>
+</p>
+
+
+<h2>Installation</h2>
+<h3>Download</h3>
+
+<p>
+Download a 
+<a href="http://sourceforge.net/project/platformdownload.php?group_id=277757">source distribution package</a>,
+or check out the latest development version from our svn repository with:
+</p>
+<pre>
+svn co https://octomap.svn.sourceforge.net/svnroot/octomap/trunk octomap
+</pre>
+
+<h3>Compilation</h3>
+<p>To build the Octomap libraries, you need a current version of GCC (tested with 
+4.3 and 4.4 under Ubuntu 9.04 and 9.10) and cmake. The 3D viewer application 
+requires Qt4 and OpenGL, and is based on <a href="http://www.libqglviewer.com/">libQGLViewer</a>. 
+You can either install libQGLViewer as a system-wide package 
+(libqglviewer-qt4-dev in Ubuntu 9.10), or use the version we provide in the 
+"external" directory. If the CMake compilation can't find an installed qglviewer,
+it will automatically compile our supplied version and link against it.
+</p>
+
+<p>
+All dependencies on Ubuntu can be met by running:
+</p>
+<pre>sudo apt-get install cmake doxygen libqt4-dev libqt4-opengl-dev</pre>
+
+<p>Build the complete project by changing into the "build" directory 
+and running cmake:
+</p>
+<pre>cmake ../src</pre>    
+<p>
+Type <tt>make</tt> to compile afterwards. This will create all CMake
+files cleanly in the "build" folder (<em>Out-of-source build</em>).
+Executables will end up in "bin", libraries in "lib".
+</p>
+<p>
+A debug configuration can be created by running:
+</p>
+<pre>cmake -DCMAKE_BUILD_TYPE=Debug ../src </pre>
+<p>
+in "build" or a different directory (e.g. "build-debug").
+</p>
+<h3>Getting started</h3>
+<p>Jump right in and have a look at the example <strong>src/octomap/simple.cpp</strong>
+or start the 3D viewer <strong>bin/octovis</strong>.
+
+You will find an example scan to load at <strong>src/examples/scan.dat.bz2</strong> 
+(please bunzip2 it first). The Maps section below contains some finished 
+real-world maps to look at.
+
+<h3>Documentation</h3>
+<p>
+In your build directory, type <tt>make docs</tt>. This builds 
+the Doxygen documentation for the library. 
+Just open <strong>doc/html/index.html</strong> with
+a web browser to read it. To build the documentation, you need to 
+have <a href="http://www.doxygen.org/">doxygen</a> installed.
+</p>
+
+<h2>ROS Integration</h2>
+<p>
+Octomap can directly be included in any node running in the <a href="http://www.ros.org">Robot
+Operating System (ROS)</a>. A virtual "octomap" ROS package
+is included in the subfolder "ros". Just append this path to your
+ROS_PACKAGE_PATH environment variable.</p>
+<p>
+Additonally, you can use the provided octomap_server ROS node to load an Octomap file, create some basic
+visualization in RViz (MarkerArray, topic "occupied_cells_vis_array") and send out
+the map as compact binary stream to any other node (topic "octomap_binary").
+</p>
+<h2>Maps</h2>
+
+Take a look at some of our example maps. Maps can be downloaded in a
+compact binary file format called <i>bonsai tree files</i>
+(.bt). Bonsai tree files can be loaded using the library or the 3D viewer application.
+
+<table>
+<tr>
+  <td>
+    <a href="freiburg_outdoor_big.png"><img src="freiburg_outdoor.png" alt="Freiburg outdoor 3D map"></a>
+  </td>
+
+  <td>
+  Freiburg Computer Science campus: <a href="https://sourceforge.net/projects/octomap/files/maps/freiburg_outdoor.bt/download">freiburg_outdoor.bt</a><br><br>
+
+  Map size: 292m x 167m.<br>
+  Resolution: 0.2m.<br>
+  <a href="http://ais.informatik.uni-freiburg.de/projects/datasets/fr360/">Original dataset</a>
+  </td>
+</tr>
+
+
+<tr>
+  <td>
+    <a href="freiburg_079_big.png"><img src="freiburg_079.png" alt="Freiburg Geb. 079 indoor 3D map"></a>
+  </td>
+  <td>
+    Freiburg 079 indoor dataset: <a href="https://sourceforge.net/projects/octomap/files/maps/geb079.bt/download">geb079.bt</a><br><br>
+
+    Map size: 39m x 15m.<br>
+    Resolution: 0.1m.<br><br>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a href="newcol_big.png"><img src="newcol.png" alt="New College dataset 3D map "></a>
+  </td>
+
+  <td>
+  Oxford New College dataset: <a href="https://sourceforge.net/projects/octomap/files/maps/newcol.bt/download">newcol.bt</a><br><br>
+
+  Map size: 250m x 161m.<br>
+  Resolution: 0.2m.<br>
+  <a href="http://www.robots.ox.ac.uk/NewCollegeData/">Original dataset</a>
+  </td>
+</tr>
+
+</table>
+
+<h2>Importing Data</h2>
+<h3>Laser Scan Data</h3>
+<p>Plain-text laser scan data can be imported from the following file format:
+</p>
+<pre>
+NODE x y z roll pitch yaw
+x y z
+x y z
+[...]
+NODE x y z roll pitch yaw
+x y z
+[...]
+</pre>
+<p>
+The keyword <tt>NODE</tt> is followed by the 6D pose of the laser origin of the 3D scan 
+(roll, pitch, and yaw angles are around the axes x, y, z respectively).
+After a <tt>NODE</tt>-line, the laser endpoints of the scan originating at that
+scan node are listed as 3D points, in the coordinate frame of the scan node.
+The next <tt>NODE</tt> keyword specifies the start of a new 3D scan.
+Lines starting with '#' or empty lines are ignored.
+</p>
+<p>
+Our tool "log2graph" converts these plain-text log files into a binary scan graph
+file, which can be directly opened and converted in the viewer "octovis", or 
+converted to an octree map from the command line with "graph2tree".
+</p>
+
+<h3>3D model files</h3>
+<p>
+You can directly create an Octomap file from a variety of 3D file formats (3DS, VRML, OBJ ...) 
+by first voxelizing them with <a href="http://www.cs.princeton.edu/~min/binvox">binvox</a>.
+For convenience, we provide the binvox Linux binary in <strong>src/extern/binvox</strong>.
+</p>
+<p>
+After converting your 3D data to a binvox file, you can create an Octree map from it
+by running our tool "binvox2bt".
+</p>
+
+
+</div>
+<p>
+    <a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+  </p>
+  
+</body></html>

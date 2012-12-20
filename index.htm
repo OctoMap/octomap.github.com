@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="Kai M. Wurm, Armin Hornung">
+<title>OctoMap - 3D occupancy mapping</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+<script type="text/javascript" src="shadowbox/shadowbox.js"></script>
+<script type="text/javascript"> 
+  Shadowbox.init({ language: 'en', players: ['img', 'html', 'iframe', 'qt', 'wmp', 'swf', 'flv'] }); 
+</script>
+</head>
+
+<body>
+
+<div id="main">
+<H1>OctoMap</H1>
+<h2>An Efficient Probabilistic 3D Mapping Framework Based on Octrees</h2>
+
+<p>
+The <a href="https://sourceforge.net/projects/octomap/">OctoMap library</a> 
+implements a 3D occupancy grid mapping
+approach, providing data structures and mapping algorithms in C++. The map
+implementation is based on an octree and is designed to meet the following
+requirements:
+</p>
+
+<ul>
+<li>
+<b>Full 3D model.</b>  The map is able to model arbitrary environments
+without prior assumptions about it. The representation models occupied
+areas as well as free space. If no information is available about an
+area (commonly denoted as <i>unknown areas</i>), this information is
+encoded as well.  While the distinction between free and occupied
+space is essential for safe robot navigation, information about
+unknown areas is important, e.g., for autonomous exploration of an
+environment.
+</li>
+<li>
+<b>Updatable.</b>  It is possible to add new information or sensor
+ readings at any time. Modeling and updating is done in
+ a <i>probabilistic</i> fashion. This accounts for sensor noise or
+ measurements which result from dynamic changes in the environment,
+ e.g., because of dynamic objects.  Furthermore, multiple robots are
+ able to contribute to the same map and a previously recorded map is
+ extendable when new areas are explored.
+</li>
+<li>
+<b>Flexible.</b>  The extent of the map does not have to be known in
+advance. Instead, the map is dynamically expanded as needed. The map
+is multi-resolution so that, for instance, a high-level planner is
+able to use a coarse map, while a local planner may operate using a
+fine resolution. This also allows for efficient visualizations which
+scale from coarse overviews to detailed close-up views.
+</li>
+<li>
+<b>Compact.</b>  The map is stored efficiently, both in memory and on
+disk. It is possible to generate compressed files for later usage or
+convenient exchange between robots even under bandwidth constraints.
+</li>
+</ul>
+
+<p>
+Detailed information about the implemented approach can be found in the <a href="http://ais.informatik.uni-freiburg.de/publications/papers/wurm10octomap.pdf">OctoMap paper (pdf)</a>.
+More information about this project is availble at the <a href="https://sourceforge.net/projects/octomap/">
+<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=277757&amp;type=10" width="80" height="15" alt="SF logo">&nbsp;Sourceforge project page</a>.
+</p>
+
+<p>
+The OctoMap library is available as a <i>self-contained
+source distribution</i> for Linux (recommended), Mac OS and Windows. 
+It was developed by <a href="http://www.informatik.uni-freiburg.de/~wurm">Kai
+M. Wurm</a> and <a href="http://www.informatik.uni-freiburg.de/~hornunga">Armin
+Hornung</a>, and is currently maintained by Armin Hornung. Feel free to contact us with questions and issues. To report bugs
+or request features, best use our tracker at <a href="https://sourceforge.net/apps/trac/octomap">https://sourceforge.net/apps/trac/octomap</a>.
+
+We would like to thank 
+Stefan O&szlig;wald, J&ouml;rg M&uuml;ller, Radu Rusu, Raphael Schmitt, and Christoph Sprunk for their contrbutions.
+</p>
+
+<h3>Example Projects</h3>
+   <table border=0 width=680 class="youtube">
+      <tr>                                         <!-- mapping  -->
+      <td class="youtube"><a href="http://www.youtube.com/v/7ZsxJzR14rc&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- campus map -->
+            <!-- <img src="http://img.youtube.com/vi/7ZsxJzR14rc/2.jpg"> -->
+            <img src="vi/campus.jpg" alt="Video thumb">
+        </a></td>
+
+        <td class="youtube"><a href="http://www.youtube.com/v/O2TDNJuHMKo&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- fr 079 -->
+            <!-- <img src="http://img.youtube.com/vi/O2TDNJuHMKo/2.jpg"> -->
+            <img src="vi/079.jpg" alt="Video thumb">
+        </a></td>                                
+        <td class="youtube"><a href="http://www.youtube.com/v/yp0f8-AKvDU&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=640;height=510"> <!-- object mapping -->
+        <img src="http://img.youtube.com/vi/yp0f8-AKvDU/3.jpg" alt="Video thumb">
+        </a></td>
+        <!-- willow garage  -->
+        <td class="youtube"><a href="http://www.youtube.com/v/uiIi2rSKWAU&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=640;height=480"> <!-- nao localization -->
+        <img src="http://img.youtube.com/vi/uiIi2rSKWAU/2.jpg" alt="Video thumb">
+        </a></td>
+        <td class="youtube"><a href="http://www.youtube.com/v/9f32FmbtHCs&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=640;height=480"> <!-- color octomap demo -->
+            <!-- <img src="http://img.youtube.com/vi/9f32FmbtHCs/2.jpg"> -->
+            <img src="vi/cot.jpg" alt="Video thumb">
+        </a></td>
+      </tr>
+
+      <tr> 
+      <td class="youtube"><a href="http://www.youtube.com/v/sot6gjj3SzU&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- willow 3d nav -->
+      <img src="vi/3dnav.jpg" alt="Video thumb">
+            <!-- <img src="http://img.youtube.com/vi/sot6gjj3SzU/3.jpg"> -->
+        </a></td>
+        <td class="youtube">
+<!-- <a href="http://www.youtube.com/v/hHF3pRWiP7o&rel=1&autoplay=1" rel="shadowbox;width=810;height=480"> -->
+<a href="http://www.youtube.com/v/25nnJ64ED5Q&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- willow octomap2 -->
+            <!-- <img src="http://img.youtube.com/vi/hHF3pRWiP7o/3.jpg"> -->
+            <img src="vi/octomap2.jpg" alt="Video thumb">
+        </a></td>    
+        <td class="youtube"><a href="http://www.youtube.com/v/l6u06j_VsXc&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- willow collision_octomap -->
+            <!-- <img src="http://img.youtube.com/vi/l6u06j_VsXc/2.jpg"> -->
+            <img src="vi/coll.jpg" alt="Video thumb">
+        </a></td>
+        <!-- other freiburg projects -->
+
+        <td class="youtube"><a href="http://www.youtube.com/v/5o3ABX7xYJU&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=640;height=480"> <!-- rgbdslam -->
+            <!-- <img src="http://img.youtube.com/vi/5o3ABX7xYJU/2.jpg"> -->
+            <img src="vi/cot2.jpg" alt="Video thumb">
+        </a></td>        
+        <td class="youtube"><a href="http://www.youtube.com/v/0sFyyKEoB4o&amp;rel=1&amp;autoplay=1" rel="shadowbox;width=810;height=480"> <!-- quadcopter mapping -->
+            <!-- <img src="http://img.youtube.com/vi/0sFyyKEoB4o/2.jpg"> -->
+            <img src="vi/quad.jpg" alt="Video thumb">
+        </a></td>
+        <!-- <td class="youtube"><a href="http://www.youtube.com/v/_rIAGKA6uS8"> --> <!-- wheelchair mapping -->
+        <!--     <img src="http://img.youtube.com/vi/_rIAGKA6uS8/2.jpg"> -->
+        <!-- </a></td> -->
+      </tr>
+
+    </table>
+
+
+<h2>License</h2>
+<p>
+OctoMap is released under the <a href="http://opensource.org/licenses/BSD-3-Clause">New BSD License</a>.
+</p>
+<p>
+The viewer <em>octovis</em> is released under the <a href="http://opensource.org/licenses/gpl-2.0.php">GNU-GPL License (version 2)</a>.
+</p>
+
+
+<h3>Using Octomap?</h3>
+<p>Please let us know if you are using OctoMap, as we are curious to find out how it enables other people's work or research. 
+Additionally, please cite our paper if you use OctoMap in your research:
+</p>
+<p>K. M. Wurm, A. Hornung, M. Bennewitz, C. Stachniss, and W. Burgard, 
+<strong>&quot;OctoMap: A Probabilistic, Flexible, and Compact 3D Map Representation for Robotic Systems&quot;</strong> in
+<em>Proc. of the ICRA 2010 Workshop on Best Practice in 3D Perception and Modeling for Mobile Manipulation</em>, 2010.
+Software available at <a href="http://octomap.sf.net/">http://octomap.sf.net/</a>.
+</p>
+<p>BibTeX:</p>
+<pre>@inproceedings{octomap,
+  author = {K. M. Wurm and A. Hornung and 
+  M. Bennewitz and C. Stachniss and W. Burgard},
+  title = {{OctoMap}: A Probabilistic, Flexible, and Compact {3D} Map 
+  Representation for Robotic Systems},
+  booktitle = {Proc. of the ICRA 2010 Workshop on Best Practice in 
+  3D Perception and Modeling for Mobile Manipulation},
+  year = 2010,
+  month = may,
+  address = {Anchorage, AK, USA},
+  url = {http://octomap.sf.net/},
+  note = {Software available at \url{http://octomap.sf.net/}}
+}</pre>
+
+
+
+<h2>Installation</h2>
+<h3>Download</h3>
+
+<p>
+Download a 
+<a href="http://sourceforge.net/project/platformdownload.php?group_id=277757">the latest released distribution package</a>,
+or check out the latest development version from our svn repository with:
+</p>
+<pre>
+svn co https://octomap.svn.sourceforge.net/svnroot/octomap/trunk octomap
+</pre>
+<p>Older releases are available from the <a href="http://sourceforge.net/projects/octomap/files/">Sourceforge download page</a> or at the SVN URL <a href="https://octomap.svn.sourceforge.net/svnroot/octomap/tags/">https://octomap.svn.sourceforge.net/svnroot/octomap/tags/</a>. 
+
+</p>
+<p>
+If you want to use OctoMap in the <a href="http://www.ros.org">Robot
+Operating System (ROS)</a>, see the <a href="http://www.ros.org/wiki/octomap" >documentation on the ROS wiki</a> and the <a href="http://www.ros.org/wiki/octomap_mapping" ><strong>octomap_mapping</strong> stack</a> for map building. Pre-compiled packages for most platforms are already available and directly integrated.
+</p>
+
+<h3>Compilation</h3>
+<p>To build the OctoMap libraries, you need a current version of GCC (tested with 
+4.3 - 4.6 under Ubuntu 9.04 - 12.04, 32 and 64 Bit) and cmake. The 3D viewer application 
+requires Qt4 and OpenGL, and is based on <a href="http://www.libqglviewer.com/">libQGLViewer</a>. 
+You can either install libQGLViewer as a system-wide package 
+(libqglviewer-qt4-dev in Ubuntu), or use the version we provide in the 
+"external" directory. If the CMake compilation can't find an installed qglviewer,
+it will automatically compile our supplied version and link against it.
+For building the GUI, you need to make sure that qmake for Qt4 is used (<tt>qmake -v</tt>).
+If yours is set to Qt3 in Ubuntu, you can change it to qmake-qt4 by running
+<tt>sudo update-alternatives --config qmake</tt> after installing the dependencies
+below.
+</p>
+
+<p>
+All dependencies for the library and viewer on Ubuntu can be met by running:
+</p>
+<pre>sudo apt-get install build-essential cmake doxygen libqt4-dev \
+	libqt4-opengl-dev libqglviewer-qt4-dev</pre>
+
+<p>Build the complete project by changing into the "build" directory 
+and running cmake:
+</p>
+<pre>cmake ..</pre>    
+<p>
+Type <tt>make</tt> to compile afterwards. This will create all CMake
+files cleanly in the "build" folder (<em>Out-of-source build</em>).
+Executables will end up in "bin", libraries in "lib". You can also build
+the library and viewer separately, just have a look at the enclosed README.txt
+for details.
+</p>
+<p>
+A debug configuration can be created by running:
+</p>
+<pre>cmake -DCMAKE_BUILD_TYPE=Debug .. </pre>
+<p>
+in "build" or a different directory (e.g. "build-debug").
+</p>
+<p>
+After compiling, you can verify that all is working as expected by running our units tests with <tt>make test</tt>.</p>
+<h3>Getting started</h3>
+<p>Jump right in and have a look at the example <strong>src/octomap/simple.cpp</strong>
+or start the 3D viewer <strong>bin/octovis</strong>.
+
+You will find an example scan to load at <strong>src/examples/scan.dat.bz2</strong> 
+(please bunzip2 it first). The Maps section below contains some finished 
+real-world maps to look at.
+
+<h3>Documentation</h3>
+<p>
+A thorough auto-generated doxygen documentation of the API for the latest release is available at
+<a href="http://octomap.sourceforge.net/doxygen/">http://octomap.sourceforge.net/doxygen/</a>.
+Depending on your version, this may be outdated. To generate the documentation 
+corresponding to you local version of OctoMap, type <tt>make docs</tt> in the build directory
+ (requires <a href="http://www.doxygen.org/">doxygen</a>). Just open <strong>doc/html/index.html</strong> with
+a web browser to read it. 
+</p>
+
+<h2>Maps</h2>
+<p>
+Take a look at some of our example maps below. You can find these and more datasets in our <a href="http://ais.informatik.uni-freiburg.de/projects/datasets/octomap/">dataset repository</a> as finished OctoMap files and sources in the form of 3D laser scans.
+</p>
+<div style="float:left"><div style="font-size:10pt">Freiburg campus (outdoor)</div>
+<a href="freiburg_outdoor_big.png"><img src="freiburg_outdoor.png" alt="Freiburg outdoor 3D map"></a>
+</div>
+<div style="float:left"><div style="font-size:10pt">Freiburg building 079 (corridor)</div>
+<a href="freiburg_079_big.png"><img src="freiburg_079.png" alt="Freiburg Geb. 079 indoor 3D map"></a>
+</div>
+<div style="float:left"><div style="font-size:10pt">New College (Epoch C)</div>
+<a href="newcol_big.png"><img src="newcol.png" alt="New College dataset 3D map "></a>
+</div>
+
+<h2 style="clear:both">Importing Data</h2>
+<h3>Laser Scan Data</h3>
+<p>Plain-text laser scan data can be imported from the following file format:
+</p>
+<pre>
+NODE x y z roll pitch yaw
+x y z
+x y z
+[...]
+NODE x y z roll pitch yaw
+x y z
+[...]
+</pre>
+<p>
+The keyword <tt>NODE</tt> is followed by the 6D pose of the laser origin of the 3D scan 
+(roll, pitch, and yaw angles are around the axes x, y, z respectively).
+After a <tt>NODE</tt>-line, the laser endpoints of the scan originating at that
+scan node are listed as 3D points, in the coordinate frame of the scan node.
+The next <tt>NODE</tt> keyword specifies the start of a new 3D scan.
+Lines starting with '#' or empty lines are ignored.
+</p>
+<p>
+Our tool "log2graph" converts these plain-text log files into a binary scan graph
+file, which can be directly opened and converted in the viewer "octovis", or 
+converted to an octree map from the command line with "graph2tree".
+</p>
+
+<h3>3D model files</h3>
+<p>
+You can directly create an OctoMap file from a variety of 3D file formats (3DS, VRML, OBJ ...) 
+by first voxelizing them with <a href="http://www.cs.princeton.edu/~min/binvox">binvox</a>.
+For convenience, we provide the binvox Linux binary in <strong>src/extern/binvox</strong>.
+</p>
+<p>
+After converting your 3D data to a binvox file, you can create an Octree map from it
+by running our tool "binvox2bt".
+</p>
+
+<h2>Acknowledgments</h2>
+<p>OctoMap was developed at University of Freiburg in the DFG-funded 
+<a href="http://www.sfbtr8.uni-bremen.de/">SFB/TR8 Spatial Cognition</a> within the
+projects A3-[MultiBot] and A8-[HumanoidSpace].</p>
+<p>
+<img src="unilogo_100.png" alt="Logo Uni Freiburg"> <img src="sfbtr8.png"  alt="Logo SFBTR8"> <img src="dfg.png"  alt="Logo DFG">
+</p>
+</div>
+<p>
+    <a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+  </p>
+  
+</body></html>
