@@ -19,10 +19,10 @@
 <h2>An Efficient Probabilistic 3D Mapping Framework Based on Octrees</h2>
 
 <p>
-The <a href="https://sourceforge.net/projects/octomap/">OctoMap library</a> 
+The <a href="http://octomap.github.com/">OctoMap library</a> 
 implements a 3D occupancy grid mapping
-approach, providing data structures and mapping algorithms in C++. The map
-implementation is based on an octree and is designed to meet the following
+approach, providing data structures and mapping algorithms in C++ particularly suited for robotics. 
+The map implementation is based on an octree and is designed to meet the following
 requirements:
 </p>
 
@@ -30,9 +30,9 @@ requirements:
 <li>
 <b>Full 3D model.</b>  The map is able to model arbitrary environments
 without prior assumptions about it. The representation models occupied
-areas as well as free space. If no information is available about an
-area (commonly denoted as <i>unknown areas</i>), this information is
-encoded as well.  While the distinction between free and occupied
+areas as well as free space. Unknown areas of the environment are 
+implicitly encoded in the map.  
+While the distinction between free and occupied
 space is essential for safe robot navigation, information about
 unknown areas is important, e.g., for autonomous exploration of an
 environment.
@@ -63,8 +63,6 @@ convenient exchange between robots even under bandwidth constraints.
 
 <p>
 Detailed information about the implemented approach can be found in the <a href="http://ais.informatik.uni-freiburg.de/publications/papers/wurm10octomap.pdf">OctoMap paper (pdf)</a>.
-More information about this project is availble at the <a href="https://sourceforge.net/projects/octomap/">
-<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=277757&amp;type=10" width="80" height="15" alt="SF logo">&nbsp;Sourceforge project page</a>.
 </p>
 
 <p>
@@ -72,10 +70,7 @@ The OctoMap library is available as a <i>self-contained
 source distribution</i> for Linux (recommended), Mac OS and Windows. 
 It was developed by <a href="http://www.informatik.uni-freiburg.de/~wurm">Kai
 M. Wurm</a> and <a href="http://www.informatik.uni-freiburg.de/~hornunga">Armin
-Hornung</a>, and is currently maintained by Armin Hornung. Feel free to contact us with questions and issues. To report bugs
-or request features, best use our tracker at <a href="https://sourceforge.net/apps/trac/octomap">https://sourceforge.net/apps/trac/octomap</a>.
-
-We would like to thank 
+Hornung</a>, and is currently maintained by Armin Hornung. We would like to thank 
 Stefan O&szlig;wald, J&ouml;rg M&uuml;ller, Radu Rusu, Raphael Schmitt, and Christoph Sprunk for their contrbutions.
 </p>
 
